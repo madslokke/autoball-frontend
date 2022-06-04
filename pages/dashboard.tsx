@@ -3,8 +3,12 @@ import Layout from "../components/layout";
 import {Card, Grid, Spacer, Table} from "@nextui-org/react";
 import Link from "next/link";
 import CreateTeamModal from "../components/modals/createTeamModal";
+import React from "react";
 
 const Dashboard: NextPage = () => {
+
+  const openModal = React.createRef();
+
   return (
     <Layout>
       <h1 className="float-right p-1 pr-4 text-2xl font-light">Sprækkebjerg</h1>
@@ -100,11 +104,9 @@ const Dashboard: NextPage = () => {
         </Grid>
         <Grid sm={5} xs={12}>
           <div className="flex flex-col flex-auto">
-            <Link href='/create/team'>
-              <Card clickable className="!p-2" style={{backgroundColor: "#87FF73"}}>
-                <h1 className="text-3xl text-center">Opstart Nyt Hold</h1>
-              </Card>
-            </Link>
+            <Card clickable onClick={() => openModal.current.openModal()} className="!p-2" style={{backgroundColor: "#87FF73"}}>
+              <h1 className="text-3xl text-center">Opstart Nyt Hold</h1>
+            </Card>
             <Spacer/>
             <Card className="flex-grow">
               <h1 className="text-xl">Reload stationer</h1>
@@ -151,7 +153,7 @@ const Dashboard: NextPage = () => {
           </div>
         </Grid>
       </Grid.Container>
-      <CreateTeamModal open={true}/>
+      <CreateTeamModal ref={openModal}/>
     </Layout>
   )
 }

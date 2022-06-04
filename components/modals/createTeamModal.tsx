@@ -2,7 +2,19 @@ import React from "react";
 import {Button, Input, Modal, Spacer} from "@nextui-org/react";
 import api from "../../util/api";
 
-class CreateTeamModal extends React.Component<{ open: boolean }, any> {
+class CreateTeamModal extends React.Component<any, { open: boolean }> {
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      open: false
+    }
+  }
+
+
+  public openModal() {
+    this.setState({open: true});
+  }
 
   onSubmit(event: any) {
     event.preventDefault();
@@ -13,17 +25,21 @@ class CreateTeamModal extends React.Component<{ open: boolean }, any> {
       }
     }
 
-
     api().get('/sanctum/csrf-cookie').then(() => {
       api().post('/api/teams', data, {responseType: "json"}).then(result => {
+        console.log(this, this.state);
+        this.setState({open: false});
+        for (let field of event.target) {
+          field.value = '';
+        }
       });
     });
   }
 
   render() {
     return (
-      <Modal open={this.props.open}>
-        <form onSubmit={this.onSubmit}>
+      <Modal open={this.state.open} onClose={() => this.setState({open: false})}>
+        <form onSubmit={(event) => this.onSubmit(event)}>
           <Modal.Header>
             <h1 className="text-2xl">Nyt Hold</h1>
           </Modal.Header>
@@ -65,7 +81,7 @@ class CreateTeamModal extends React.Component<{ open: boolean }, any> {
               label="Instruktør Navn"/>
           </Modal.Body>
           <Modal.Footer>
-            <Button auto flat color="error" type="button">
+            <Button auto flat color="error" type="button" onClick={() => this.setState({open: false})}>
               Luk
             </Button>
             <Button auto type="submit">

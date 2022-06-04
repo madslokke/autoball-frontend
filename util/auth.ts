@@ -15,7 +15,7 @@ export const isLoggedIn = (reqCookies = null) => {
 export const logIn = () => {
   Cookies.set('ticket_management_is_user_logged_in', 'true', {expires: 86400, sameSite: 'lax'})
 
-  router.push('/')
+  router.push('/dashboard')
 }
 
 export const logOut = () => {
