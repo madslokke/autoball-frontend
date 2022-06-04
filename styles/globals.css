@@ -1,6 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root body {
+  --nextui-borderWeights-normal: 0
+}
+table thead tr.nextui-table-hidden-row {
+  display: none;
+}
 html,
 body {
   padding: 0;
@@ -17,3 +24,4 @@ a {
 * {
   box-sizing: border-box;
 }
+
