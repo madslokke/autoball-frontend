@@ -7,7 +7,7 @@ import React from "react";
 
 const Dashboard: NextPage = () => {
 
-  const openModal = React.createRef();
+  const openModal: any = React.createRef();
 
   return (
     <Layout>
