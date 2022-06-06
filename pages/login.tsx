@@ -1,6 +1,5 @@
 import {NextPage} from "next";
 import {Button, Card, Container, Input, Spacer} from "@nextui-org/react";
-import axios from "axios";
 import api from "../util/api";
 import {useState} from "react";
 import {logIn} from "../util/auth";
