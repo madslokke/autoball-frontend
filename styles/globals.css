@@ -5,15 +5,16 @@
 :root body {
   --nextui-borderWeights-normal: 0
 }
+table.nextui-c-cuoPNV-ieyJsXh-css {
+  padding: 0;
+}
 table thead tr.nextui-table-hidden-row {
   display: none;
 }
 html,
-body {
+body, html h1, html p {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {

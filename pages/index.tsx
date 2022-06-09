@@ -11,11 +11,10 @@ const Index: NextPage = () => {
     logOut();
   }
 
-  const openModal: any = React.createRef();
+  const createTeamModal: any = React.createRef();
 
   return (
     <Layout>
-      <h1 className="float-right p-1 pr-4 text-2xl font-light">Sprækkebjerg</h1>
       <Grid.Container gap={2} justify="center">
         <Grid sm={7} xs={12}>
           <div className="flex flex-col flex-auto">
@@ -108,7 +107,7 @@ const Index: NextPage = () => {
         </Grid>
         <Grid sm={5} xs={12}>
           <div className="flex flex-col flex-auto">
-            <Card clickable onClick={() => openModal.current.openModal()} className="!p-2" style={{backgroundColor: "#87FF73"}}>
+            <Card clickable onClick={() => createTeamModal.current.openModal()} className="!p-2" color="primary">
               <h1 className="text-3xl text-center">Opstart Nyt Hold</h1>
             </Card>
             <Spacer/>
@@ -157,7 +156,7 @@ const Index: NextPage = () => {
           </div>
         </Grid>
       </Grid.Container>
-      <CreateTeamModal ref={openModal}/>
+      <CreateTeamModal ref={createTeamModal}/>
     </Layout>
   )
 }

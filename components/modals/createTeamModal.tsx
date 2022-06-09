@@ -49,6 +49,7 @@ class CreateTeamModal extends React.Component<any, { open: boolean }> {
               fullWidth
               name="name"
               size="lg"
+              required
               label="Hold Navn"/>
             <Input
               clearable
@@ -59,6 +60,7 @@ class CreateTeamModal extends React.Component<any, { open: boolean }> {
               label="Email"/>
             <div className="flex">
               <Input
+                required
                 clearable
                 fullWidth
                 name="playing_field"
@@ -66,6 +68,7 @@ class CreateTeamModal extends React.Component<any, { open: boolean }> {
                 label="Bane"/>
               <Spacer x={1}></Spacer>
               <Input
+                required
                 clearable
                 fullWidth
                 name="start_date"
