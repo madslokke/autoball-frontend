@@ -58,7 +58,8 @@ const PlayerPage: NextPage = () => {
       };
     }
 
-    const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
+    const permissions: any = { name: "nfc" };
+    const nfcPermissionStatus = await navigator.permissions.query(permissions);
     if (nfcPermissionStatus.state === "granted") {
       // NFC access was previously granted, so we can start NFC scanning now.
       startScanning();
