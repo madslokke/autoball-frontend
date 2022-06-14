@@ -46,34 +46,24 @@ const PlayerPage: NextPage = () => {
     }
   }
 
-  const scanWeapon = (e: any) => {
-    const scan = async () => {
-      if ("NDEFReader" in window) {
-        try {
-          const ndef = new (window as any).NDEFReader();
-          await ndef.scan();
+  const scanWeapon = async (e: any) => {
+    const ndef = new (window as any).NDEFReader();
 
-          console.log("Scan started successfully.");
-          ndef.onreadingerror = () => {
-            console.log("Cannot read data from the NFC tag. Try another one?");
-          };
+    async function startScanning() {
+      await ndef.scan();
+      ndef.onreading = (event: any) => {
+        console.log(event.serialNumber);
+        const weapon = weapons.find((weapon: any) => weapon.nfc_id === event.serialNumber);
+        setWeaponId(weapon.name);
+      };
+    }
 
-          ndef.onreading = (event: any) => {
-            console.log("NDEF message read.");
-            onReading(event); //Find function below
-          };
-        } catch (error) {
-          console.log(`Error! Scan failed to start: ${error}.`);
-        }
-      }
-    };
+    const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
+    if (nfcPermissionStatus.state === "granted") {
+      // NFC access was previously granted, so we can start NFC scanning now.
+      startScanning();
+    }
   }
-
-  const onReading = ({message, serialNumber}: any) => {
-    console.log(serialNumber);
-    const weapon = weapons.find((weapon: any) => weapon.nfc_id === serialNumber);
-    setWeaponId(weapon.name);
-  };
 
   const onSubmit = (e: any) => {
     e.preventDefault();
