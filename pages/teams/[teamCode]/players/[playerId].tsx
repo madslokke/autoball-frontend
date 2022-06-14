@@ -97,7 +97,7 @@ const PlayerPage: NextPage = () => {
         <Card className="flex flex-col items-stretch items-center max-w-[500px] !m-auto !p-8">
           <Input label="Navn" size="lg" onChange={e => setPlayerName(e.target.value)}/>
           <Spacer/>
-          <Input label="Våben nummer" size="lg" onChange={changeWeapon}
+          <Input label="Våben nummer" size="lg" onChange={changeWeapon} value={weaponId}
                  status={weaponId ? (validWeapon ? 'success' : 'error') : 'default'}/>
           <Button onClick={(event) => scanWeapon(event)} type="button">Scan våben</Button>
           <p>{test.map((data: any, index: any) => <p key={index}>{data}</p>)}</p>
