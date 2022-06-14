@@ -107,7 +107,7 @@ const Dashboard: NextPage = () => {
         </Grid>
         <Grid sm={5} xs={12}>
           <div className="flex flex-col flex-auto">
-            <Card clickable onClick={() => createTeamModal.current.openModal()} className="!p-2" color="primary">
+            <Card isPressable isHoverable onClick={() => createTeamModal.current.openModal()} className="!p-2" color="primary">
               <h1 className="text-3xl text-center">Opstart Nyt Hold</h1>
             </Card>
             <Spacer/>

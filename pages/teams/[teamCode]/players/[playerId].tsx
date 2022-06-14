@@ -50,7 +50,7 @@ const PlayerPage: NextPage = () => {
     const scan = async () => {
       if ("NDEFReader" in window) {
         try {
-          const ndef = new window.NDEFReader();
+          const ndef = new (window as any).NDEFReader();
           await ndef.scan();
 
           console.log("Scan started successfully.");
@@ -58,7 +58,7 @@ const PlayerPage: NextPage = () => {
             console.log("Cannot read data from the NFC tag. Try another one?");
           };
 
-          ndef.onreading = (event) => {
+          ndef.onreading = (event: any) => {
             console.log("NDEF message read.");
             onReading(event); //Find function below
           };
