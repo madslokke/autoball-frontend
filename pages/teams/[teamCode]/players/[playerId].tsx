@@ -51,15 +51,21 @@ const PlayerPage: NextPage = () => {
       const ndef = new (window as any).NDEFReader();
       await ndef.scan();
       ndef.addEventListener("reading", ({ message, serialNumber }: any) => {
-        const testdata: any = [];
+        let selectedWeapon = ''
         weapons.forEach((weapon: any) => {
           if (weapon.nfc_id === serialNumber) {
-            setWeaponId(weapon.name);
-            setValidWeapon(true);
+            selectedWeapon = weapon.name;
           }
         });
+        if (selectedWeapon) {
+          setWeaponId(selectedWeapon);
+          setValidWeapon(true);
+        } else {
+          alert("Kunne ikke finde et ledigt våben med det nfc tag");
+        }
       });
     } catch (error: any) {
+      alert("Der skerte en fejl: (" + error.message + ")");
     }
   }
 
