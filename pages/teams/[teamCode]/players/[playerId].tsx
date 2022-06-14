@@ -58,9 +58,12 @@ const PlayerPage: NextPage = () => {
       });
       ndef.addEventListener("reading", ({ message, serialNumber }: any) => {
         setTest(serialNumber);
-        const weapon = weapons.find((weapon: any) => weapon.nfc_id === serialNumber);
-        setWeaponId(weapon.name);
-        setTest( weapon.nfc_id + ' : ' + serialNumber);
+        const weapon = weapons.forEach((weapon: any) => {
+          if (weapon.nfc_id === serialNumber) {
+            setWeaponId(weapon.name);
+            setTest( weapon.nfc_id + ' : ' + serialNumber);
+          }
+        });
       });
       setTest('setup done');
     } catch (error: any) {
