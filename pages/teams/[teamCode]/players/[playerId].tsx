@@ -58,11 +58,11 @@ const PlayerPage: NextPage = () => {
       });
       ndef.addEventListener("reading", ({ message, serialNumber }: any) => {
         setTest(serialNumber);
-        const weapon = weapons.forEach((weapon: any) => {
+        weapons.forEach((weapon: any) => {
           if (weapon.nfc_id === serialNumber) {
             setWeaponId(weapon.name);
-            setTest( weapon.nfc_id + ' : ' + serialNumber);
           }
+          setTest( weapon.nfc_id + ' : ' + serialNumber);
         });
       });
       setTest('setup done');
