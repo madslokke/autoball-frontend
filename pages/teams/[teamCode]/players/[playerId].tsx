@@ -47,22 +47,15 @@ const PlayerPage: NextPage = () => {
   }
 
   const scanWeapon = async (e: any) => {
-    const ndef = new (window as any).NDEFReader();
-
-    async function startScanning() {
+    try {
+      const ndef = new (window as any).NDEFReader();
       await ndef.scan();
-      ndef.onreading = (event: any) => {
-        console.log(event.serialNumber);
-        const weapon = weapons.find((weapon: any) => weapon.nfc_id === event.serialNumber);
-        setWeaponId(weapon.name);
-      };
-    }
 
-    const permissions: any = { name: "nfc" };
-    const nfcPermissionStatus = await navigator.permissions.query(permissions);
-    if (nfcPermissionStatus.state === "granted") {
-      // NFC access was previously granted, so we can start NFC scanning now.
-      startScanning();
+      ndef.addEventListener("reading", ({ message, serialNumber }) => {
+        const weapon = weapons.find((weapon: any) => weapon.nfc_id === serialNumber);
+        setWeaponId(weapon.name);
+      });
+    } catch (error) {
     }
   }
 
