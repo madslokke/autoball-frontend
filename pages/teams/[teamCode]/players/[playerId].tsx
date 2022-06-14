@@ -13,7 +13,6 @@ const PlayerPage: NextPage = () => {
   const [weapons, setWeapons] = useState<any>();
   const [products, setProducts] = useState<any>();
   const [validWeapon, setValidWeapon] = useState<any>();
-  const [test, setTest] = useState<any>([]);
 
   const [playerName, setPlayerName] = useState<any>('');
   const [weaponId, setWeaponId] = useState<any>('');
@@ -56,10 +55,9 @@ const PlayerPage: NextPage = () => {
         weapons.forEach((weapon: any) => {
           if (weapon.nfc_id === serialNumber) {
             setWeaponId(weapon.name);
+            setValidWeapon(true);
           }
-          testdata.push(weapon.nfc_id + ' : ' + serialNumber);
         });
-        setTest( testdata);
       });
     } catch (error: any) {
     }
@@ -100,7 +98,6 @@ const PlayerPage: NextPage = () => {
           <Input label="Våben nummer" size="lg" onChange={changeWeapon} value={weaponId}
                  status={weaponId ? (validWeapon ? 'success' : 'error') : 'default'}/>
           <Button onClick={(event) => scanWeapon(event)} type="button">Scan våben</Button>
-          <p>{test.map((data: any, index: any) => <p key={index}>{data}</p>)}</p>
           {products?.map((product: any) => (
             <div key={product.id}>
               <Spacer/>
