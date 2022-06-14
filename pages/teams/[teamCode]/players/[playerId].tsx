@@ -13,6 +13,7 @@ const PlayerPage: NextPage = () => {
   const [weapons, setWeapons] = useState<any>();
   const [products, setProducts] = useState<any>();
   const [validWeapon, setValidWeapon] = useState<any>();
+  const [test, setTest] = useState<any>();
 
   const [playerName, setPlayerName] = useState<any>('');
   const [weaponId, setWeaponId] = useState<any>('');
@@ -54,6 +55,7 @@ const PlayerPage: NextPage = () => {
       ndef.addEventListener("reading", ({ message, serialNumber }: any) => {
         const weapon = weapons.find((weapon: any) => weapon.nfc_id === serialNumber);
         setWeaponId(weapon.name);
+        setTest(weapon.nfc_id + ' : ' + serialNumber);
       });
     } catch (error) {
     }
@@ -94,6 +96,7 @@ const PlayerPage: NextPage = () => {
           <Input label="Våben nummer" size="lg" onChange={changeWeapon}
                  status={weaponId ? (validWeapon ? 'success' : 'error') : 'default'}/>
           <Button onClick={(event) => scanWeapon(event)} type="button">Scan våben</Button>
+          <p>{test}</p>
           {products?.map((product: any) => (
             <div key={product.id}>
               <Spacer/>
