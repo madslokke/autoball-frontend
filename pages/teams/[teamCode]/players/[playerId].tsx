@@ -57,6 +57,7 @@ const PlayerPage: NextPage = () => {
         setTest('readingerror');
       });
       ndef.addEventListener("reading", ({ message, serialNumber }: any) => {
+        setTest(serialNumber);
         const weapon = weapons.find((weapon: any) => weapon.nfc_id === serialNumber);
         setWeaponId(weapon.name);
         setTest( weapon.nfc_id + ' : ' + serialNumber);
