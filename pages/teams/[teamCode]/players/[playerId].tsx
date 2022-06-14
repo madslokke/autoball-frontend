@@ -52,12 +52,14 @@ const PlayerPage: NextPage = () => {
       const ndef = new (window as any).NDEFReader();
       await ndef.scan();
       ndef.addEventListener("reading", ({ message, serialNumber }: any) => {
+        const testdata: any = [];
         weapons.forEach((weapon: any) => {
           if (weapon.nfc_id === serialNumber) {
             setWeaponId(weapon.name);
           }
-          setTest( [...test, weapon.nfc_id + ' : ' + serialNumber]);
+          testdata.push(weapon.nfc_id + ' : ' + serialNumber);
         });
+        setTest( testdata);
       });
     } catch (error: any) {
     }
