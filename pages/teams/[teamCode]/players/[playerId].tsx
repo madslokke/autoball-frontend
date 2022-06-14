@@ -13,7 +13,7 @@ const PlayerPage: NextPage = () => {
   const [weapons, setWeapons] = useState<any>();
   const [products, setProducts] = useState<any>();
   const [validWeapon, setValidWeapon] = useState<any>();
-  const [test, setTest] = useState<any>([]);
+  const [test, setTest] = useState<any>('');
 
   const [playerName, setPlayerName] = useState<any>('');
   const [weaponId, setWeaponId] = useState<any>('');
@@ -48,22 +48,22 @@ const PlayerPage: NextPage = () => {
   }
 
   const scanWeapon = async (e: any) => {
-    setTest([...test, 'start scan']);
+    setTest('start scan');
     try {
       const ndef = new (window as any).NDEFReader();
       await ndef.scan();
 
       ndef.addEventListener("readingerror", () => {
-        setTest([...test, 'readingerror']);
+        setTest('readingerror');
       });
       ndef.addEventListener("reading", ({ message, serialNumber }: any) => {
         const weapon = weapons.find((weapon: any) => weapon.nfc_id === serialNumber);
         setWeaponId(weapon.name);
-        setTest([...test, weapon.nfc_id + ' : ' + serialNumber]);
+        setTest( weapon.nfc_id + ' : ' + serialNumber);
       });
-      setTest([...test, 'setup done']);
+      setTest('setup done');
     } catch (error: any) {
-      setTest([...test, error.message]);
+      setTest(error.message);
     }
   }
 
@@ -102,7 +102,7 @@ const PlayerPage: NextPage = () => {
           <Input label="Våben nummer" size="lg" onChange={changeWeapon}
                  status={weaponId ? (validWeapon ? 'success' : 'error') : 'default'}/>
           <Button onClick={(event) => scanWeapon(event)} type="button">Scan våben</Button>
-          <p>{test.map((data: any) => <p key={data}>{data}</p>)}</p>
+          <p>{test}</p>
           {products?.map((product: any) => (
             <div key={product.id}>
               <Spacer/>
