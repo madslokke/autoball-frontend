@@ -10,7 +10,7 @@ export const isLoggedIn = () => {
 export const logIn = () => {
   Cookies.set('isUserLoggedIn', 'true', {expires: 86400, sameSite: 'lax'})
 
-  router.push('/')
+  router.push('/dashboard')
 }
 
 export const logOut = () => {
