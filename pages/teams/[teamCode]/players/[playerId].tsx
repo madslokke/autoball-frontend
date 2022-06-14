@@ -61,6 +61,7 @@ const PlayerPage: NextPage = () => {
         setWeaponId(weapon.name);
         setTest([...test, weapon.nfc_id + ' : ' + serialNumber]);
       });
+      setTest([...test, 'setup done']);
     } catch (error: any) {
       setTest([...test, error.message]);
     }
