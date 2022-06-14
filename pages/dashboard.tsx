@@ -19,7 +19,7 @@ const Dashboard: NextPage = () => {
         <Grid sm={7} xs={12}>
           <div className="flex flex-col flex-auto">
             <Card>
-              <h1 className="text-xl ">Aktive og kommende hold</h1>
+              <h1 className="text-xl pt-3 px-3">Aktive og kommende hold</h1>
               <Table
                 lined
                 headerLined
@@ -62,7 +62,7 @@ const Dashboard: NextPage = () => {
             </Card>
             <Spacer/>
             <Card className="flex-grow">
-              <h1 className="text-xl">Betaling mangler</h1>
+              <h1 className="text-xl pt-3 px-3">Betaling mangler</h1>
               <Table
                 lined
                 headerLined
@@ -107,12 +107,12 @@ const Dashboard: NextPage = () => {
         </Grid>
         <Grid sm={5} xs={12}>
           <div className="flex flex-col flex-auto">
-            <Card isPressable isHoverable onClick={() => createTeamModal.current.openModal()} className="!p-2" color="primary">
-              <h1 className="text-3xl text-center">Opstart Nyt Hold</h1>
+            <Card isPressable isHoverable onClick={() => createTeamModal.current.openModal()} className="!p-6 !bg-green-500">
+              <h1 className="text-3xl text-center text-white">Opstart Nyt Hold</h1>
             </Card>
             <Spacer/>
             <Card className="flex-grow">
-              <h1 className="text-xl">Reload stationer</h1>
+              <h1 className="text-xl pt-3 px-3">Reload stationer</h1>
               <Table
                 lined
                 headerLined

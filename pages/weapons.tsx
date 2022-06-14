@@ -1,12 +1,15 @@
 import {NextPage} from "next";
 import Layout from "../components/layout";
-import {Button, Card, Grid, Loading, Table} from "@nextui-org/react";
+import {Button, Card, Grid, Loading, Spacer, Table} from "@nextui-org/react";
 import React, {useEffect, useState} from "react";
 import api from "../util/api";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import { faPen } from "@fortawesome/free-solid-svg-icons/faPen";
+import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
+import {faPen} from "@fortawesome/free-solid-svg-icons/faPen";
 import EditWeaponModal from "../components/modals/editWeaponModal";
+import {IconButton} from "../components/iconButton";
+import {DeleteIcon} from "../icons/deleteIcon";
+import {EditIcon} from "../icons/editIcon";
 
 const Weapons: NextPage = () => {
 
@@ -39,10 +42,10 @@ const Weapons: NextPage = () => {
         <Grid xs={12}>
           <Card>
             <div>
-              <h1 className="text-xl inline-block">
+              <h1 className="text-xl inline-block pt-3 px-3">
                 Våben
               </h1>
-              <Button size="sm" className="float-right" onClick={() => editWeaponModal.current.openModal()}>
+              <Button size="sm" className="float-right mt-3 mx-3" onClick={() => editWeaponModal.current.openModal()}>
                 <span className="font-bold">Opret våben</span>
               </Button>
             </div>
@@ -64,19 +67,24 @@ const Weapons: NextPage = () => {
                 <Table.Column width="100">Actions</Table.Column>
               </Table.Header>
               <Table.Body>
-              {weapons.map((weapon: any) => (
+                {weapons.map((weapon: any) => (
                   <Table.Row key={weapon.id}>
                     <Table.Cell>{weapon.id}</Table.Cell>
                     <Table.Cell>{weapon.name}</Table.Cell>
                     <Table.Cell>{weapon.nfc_id}</Table.Cell>
                     <Table.Cell>
-                      <div>
-                        <FontAwesomeIcon icon={faPen} className="pr-2" onClick={() => editWeaponModal.current.openModal(weapon)}/>
-                        <FontAwesomeIcon icon={faTrash} className="text-red-600" onClick={() => deleteWeapon(weapon.id)}/>
+                      <div className="flex flex-row">
+                        <IconButton onClick={() => editWeaponModal.current.openModal(weapon)}>
+                          <EditIcon size={20} fill="#979797"/>
+                        </IconButton>
+                        <Spacer x={0.3}/>
+                        <IconButton onClick={() => deleteWeapon(weapon.id)}>
+                          <DeleteIcon size={20} fill="#FF0080"/>
+                        </IconButton>
                       </div>
                     </Table.Cell>
                   </Table.Row>
-              ))}
+                ))}
               </Table.Body>
             </Table>
             {weapons.length === 0 && <Loading/>}

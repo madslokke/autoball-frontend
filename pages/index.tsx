@@ -42,7 +42,7 @@ const Index: NextPage = () => {
         <h1 className="text-5xl md:text-7xl">AUTOBALL</h1>
       </div>
 
-      <Card className="flex flex-col items-center !w-[320px] !p-8 !m-auto">
+      <Card className="flex flex-col items-center !w-[400px] !p-8 !m-auto">
         <div>
           <form onSubmit={onSubmit}>
             {
