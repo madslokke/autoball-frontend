@@ -10,6 +10,8 @@ const PlayerPage: NextPage = () => {
   const router = useRouter();
   const {teamCode, playerId} = router.query;
 
+  const [nfcScanActive, setNfcScanActive] = useState<boolean>(false);
+
   const [weapons, setWeapons] = useState<any>();
   const [products, setProducts] = useState<any>();
   const [validWeapon, setValidWeapon] = useState<any>();
@@ -47,13 +49,16 @@ const PlayerPage: NextPage = () => {
   }
 
   const scanWeapon = async (e: any) => {
+    if (nfcScanActive) {
+      return;
+    }
     try {
       const ndef = new (window as any).NDEFReader();
       await ndef.scan();
       ndef.addEventListener("reading", ({ message, serialNumber }: any) => {
         let selectedWeapon = ''
         weapons.forEach((weapon: any) => {
-          if (weapon.nfc_id === serialNumber) {
+          if (weapon.nfc_id.toLowerCase() === serialNumber.toLowerCase()) {
             selectedWeapon = weapon.name;
           }
         });
@@ -64,8 +69,10 @@ const PlayerPage: NextPage = () => {
           alert("Kunne ikke finde et ledigt våben med det nfc tag");
         }
       });
+      setNfcScanActive(true);
     } catch (error: any) {
       alert("Der skerte en fejl: (" + error.message + ")");
+      setNfcScanActive(false);
     }
   }
 
