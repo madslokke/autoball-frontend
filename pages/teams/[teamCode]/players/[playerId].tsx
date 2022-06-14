@@ -100,7 +100,7 @@ const PlayerPage: NextPage = () => {
           <Spacer/>
           <Input label="Våben nummer" size="lg" onChange={changeWeapon}
                  status={weaponId ? (validWeapon ? 'success' : 'error') : 'default'}/>
-          <Button onClick={scanWeapon} type="button">Scan våben</Button>
+          <Button onClick={(event) => scanWeapon(event)} type="button">Scan våben</Button>
           {products?.map((product: any) => (
             <div key={product.id}>
               <Spacer/>
