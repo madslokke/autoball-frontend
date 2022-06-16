@@ -53,7 +53,7 @@ const Index: NextPage = () => {
             }
             <Input size="lg" label="Hold nummer" onChange={onChange}/>
             <Spacer/>
-            <Button type="submit">
+            <Button type="submit" color="primary">
               <span className="text-lg">Find hold</span>
             </Button>
           </form>

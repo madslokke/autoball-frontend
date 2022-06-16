@@ -13,16 +13,15 @@ class NavItem extends React.Component<{ title: string, link?: string, onClick?: 
             <Link href={this.props.link}>
               <a className="text-xl">
                 {this.props.title}
-                <FontAwesomeIcon icon={faAngleRight} className="float-right text-2xl"/>
+                <FontAwesomeIcon icon={faAngleRight} className="float-right" style={{fontSize: '28px'}}/>
               </a>
             </Link>
             :
             <a className="text-xl" onClick={this.props.onClick}>
               {this.props.title}
-              <FontAwesomeIcon icon={faAngleRight} className="float-right text-2xl"/>
+              <FontAwesomeIcon icon={faAngleRight} className="float-right" style={{fontSize: '28px'}}/>
             </a>
         }
-
       </div>
     )
   }

@@ -55,7 +55,7 @@ const TeamPage: NextPage = () => {
       <Card className="flex flex-col items-stretch items-center max-w-[500px] !m-auto">
         <h1 className="text-xl px-4 pt-2">
           Spillere
-          <FontAwesomeIcon icon={faRotateRight} className="float-right" onClick={getTeam}/>
+          <FontAwesomeIcon color="#979797" icon={faRotateRight} className="float-right" onClick={getTeam}/>
         </h1>
 
         <Table

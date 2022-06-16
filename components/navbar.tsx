@@ -13,7 +13,10 @@ class Navbar extends React.Component<any, any> {
         <NavItem title="Hold" link="/teams"/>
         <NavItem title="Våben" link="/weapons"/>
         <NavItem title="Produkter" link="/products"/>
+        <NavItem title="Reload stationer" link="/reloadStations"/>
+        <NavItem title="Baner" link="/playingFields"/>
         <NavItem title="Brugere" link="/users"/>
+        <NavItem title="Statistik" link="/statistics"/>
         <NavItem title="Logout" onClick={() => logOut()}/>
       </div>
     );

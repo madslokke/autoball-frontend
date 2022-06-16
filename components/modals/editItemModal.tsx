@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Input, Modal, Spacer} from "@nextui-org/react";
 import api from "../../util/api";
 
-class EditWeaponModal extends React.Component<{ onClose: any }, { open: boolean, weapon?: any }> {
+class EditItemModal extends React.Component<{ onClose?: any, children: any, resourceName: string, getFieldData?: any }, { open: boolean, item?: any }> {
 
   constructor(props: any) {
     super(props);
@@ -11,16 +11,16 @@ class EditWeaponModal extends React.Component<{ onClose: any }, { open: boolean,
     }
   }
 
-  public openModal(weapon?: any) {
+  public openModal(product?: any) {
     this.setState({
       open: true,
-      weapon: weapon
+      item: product
     });
   }
 
   onSubmit(event: any) {
     event.preventDefault();
-    const data: any = {};
+    const data: any = this.props.getFieldData() ?? [];
     for (let field of event.target) {
       if (field.value) {
         data[field.name] = field.value;
@@ -28,15 +28,15 @@ class EditWeaponModal extends React.Component<{ onClose: any }, { open: boolean,
     }
     api().get('/sanctum/csrf-cookie').then(() => {
 
-      if (this.state.weapon) {
-        api().put('/api/weapons/' + this.state.weapon.id, data, {responseType: "json"}).then(result => {
+      if (this.state.item) {
+        api().put('/api/' + this.props.resourceName + '/' + this.state.item.id, data, {responseType: "json"}).then(result => {
           this.setState({open: false});
           for (let field of event.target) {
             field.value = '';
           }
         });
       } else {
-        api().post('/api/weapons', data, {responseType: "json"}).then(result => {
+        api().post('/api/' + this.props.resourceName, data, {responseType: "json"}).then(result => {
           this.setState({open: false});
           for (let field of event.target) {
             field.value = '';
@@ -48,34 +48,20 @@ class EditWeaponModal extends React.Component<{ onClose: any }, { open: boolean,
 
   render() {
     return (
-      <Modal open={this.state.open} onClose={() => {this.props.onClose(); this.setState({open: false})}}>
+      <Modal open={this.state.open} onClose={() => {this.props.onClose && this.props.onClose(); this.setState({open: false})}}>
         <form onSubmit={(event) => this.onSubmit(event)}>
           <Modal.Header>
-            <h1 className="text-2xl">{this.state.weapon ? 'Opdater våben' : 'Opret våben'}</h1>
+            <h1 className="text-2xl">{this.state.item ? 'Opdater' : 'Opret'}</h1>
           </Modal.Header>
           <Modal.Body>
-            <Input
-              clearable
-              fullWidth
-              name="name"
-              size="lg"
-              initialValue={this.state.weapon?.name}
-              required
-              label="Navn"/>
-            <Input
-              clearable
-              fullWidth
-              initialValue={this.state.weapon?.nfc_id}
-              name="nfc_id"
-              size="lg"
-              label="NFC Id"/>
+            {this.props.children}
           </Modal.Body>
           <Modal.Footer>
             <Button auto flat color="error" type="button" onClick={() => this.setState({open: false})}>
               Luk
             </Button>
             <Button auto type="submit">
-              {this.state.weapon ? 'Opdater' : 'Opret'}
+              {this.state.item ? 'Opdater' : 'Opret'}
             </Button>
           </Modal.Footer>
         </form>
@@ -84,4 +70,4 @@ class EditWeaponModal extends React.Component<{ onClose: any }, { open: boolean,
   }
 }
 
-export default EditWeaponModal
+export default EditItemModal

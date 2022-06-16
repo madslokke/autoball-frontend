@@ -1,9 +1,9 @@
 import {NextPage} from "next";
 import Layout from "../components/layout";
-import {Card, Grid, Spacer, Table} from "@nextui-org/react";
-import CreateTeamModal from "../components/modals/createTeamModal";
+import {Card, Grid, Input, Spacer, Table} from "@nextui-org/react";
 import React from "react";
 import {isLoggedIn, logOut} from "../util/auth";
+import CreateTeamModal from "../components/modals/createTeamModal";
 
 const Dashboard: NextPage = () => {
 
@@ -156,7 +156,7 @@ const Dashboard: NextPage = () => {
           </div>
         </Grid>
       </Grid.Container>
-      <CreateTeamModal ref={createTeamModal}/>
+      <CreateTeamModal createTeamModal={createTeamModal}/>
     </Layout>
   )
 }
