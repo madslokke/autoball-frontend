@@ -150,10 +150,10 @@ const Team: NextPage = () => {
             <Table.Header>
               <Table.Column key="id" allowsSorting>Id</Table.Column>
               <Table.Column key="name" allowsSorting>Navn</Table.Column>
-              <Table.Column key="team_code">Kugler</Table.Column>
-              <Table.Column key="playing_field">Våben</Table.Column>
-              <Table.Column key="start_date">Produkt</Table.Column>
-              <Table.Column key="status" allowsSorting>Betalt</Table.Column>
+              <Table.Column key="bullets">Brugte kugler</Table.Column>
+              <Table.Column key="weapons">Våben</Table.Column>
+              <Table.Column key="product">Produkt</Table.Column>
+              <Table.Column key="paid" allowsSorting>Betalt</Table.Column>
               <Table.Column key="actions" width="100">Actions</Table.Column>
             </Table.Header>
             <Table.Body items={list.items} loadingState={list.loadingState}>
