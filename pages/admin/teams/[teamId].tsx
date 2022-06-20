@@ -98,16 +98,18 @@ const Team: NextPage = () => {
         <p>Hold nummer: {team.team_code}</p>
         <p>Start: {team.start_date}</p>
         <p>Bane: {team.playing_field?.name}</p>
-        <Button className="!absolute right-0 bottom-0" size="sm">
-          <span className="font-bold">Annuller</span>
-        </Button>
-        {
-          team.status === 1 && (
-            <Button className="!absolute right-0 bottom-0" size="sm">
-              <span className="font-bold">Sæt igang</span>
-            </Button>
-          )
-        }
+        <div className="!absolute right-0 bottom-0 flex">
+          <Button size="sm" color="warning" bordered>
+            <span className="font-bold">Annuller</span>
+          </Button>
+          {
+            team.status === 1 && (
+              <Button size="sm" className="ml-2">
+                <span className="font-bold">Sæt igang</span>
+              </Button>
+            )
+          }
+        </div>
       </div>
     )
   }
