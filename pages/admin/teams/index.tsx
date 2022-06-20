@@ -1,16 +1,18 @@
 import {NextPage} from "next";
-import Layout from "../components/layout";
-import React, {useEffect, useState} from "react";
-import api from "../util/api";
-import {Button, Card, Grid, Input, Loading, Table, useAsyncList} from "@nextui-org/react";
-import CreateTeamModal from "../components/modals/createTeamModal";
+import Layout from "../../../components/layout";
+import React from "react";
+import api from "../../../util/api";
+import {Button, Card, Grid, Table, useAsyncList} from "@nextui-org/react";
+import CreateTeamModal from "../../../components/modals/createTeamModal";
 import {useCollator} from '@react-aria/i18n'
+import {useRouter} from "next/router";
 
 
-const Teams: NextPage = () => {
+const Index: NextPage = () => {
 
   const collator = useCollator({ numeric: true });
 
+  const router = useRouter();
   const createTeamModal: any = React.createRef();
 
   const onClose = () => {
@@ -38,6 +40,10 @@ const Teams: NextPage = () => {
 
   const openModal = (item?: any) => {
     createTeamModal.current.openModal(item)
+  }
+
+  const openTeam = (team: any) => {
+    router.push('/admin/teams/' + team.currentKey)
   }
 
   async function load() {
@@ -79,6 +85,8 @@ const Teams: NextPage = () => {
               shadow={false}
               sortDescriptor={list.sortDescriptor}
               onSortChange={list.sort}
+              onSelectionChange={openTeam}
+              selectionMode="single"
               aria-label="Teams"
               css={{
                 height: "auto",
@@ -115,4 +123,4 @@ const Teams: NextPage = () => {
   )
 }
 
-export default Teams;
+export default Index;

@@ -1,12 +1,12 @@
 import {NextPage} from "next";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import {Button, Card, Dropdown, Grid, Input, Loading, Spacer, Table} from "@nextui-org/react";
 import React, {useEffect, useState} from "react";
-import api from "../util/api";
-import {IconButton} from "../components/iconButton";
-import {DeleteIcon} from "../icons/deleteIcon";
-import {EditIcon} from "../icons/editIcon";
-import EditItemModal from "../components/modals/editItemModal";
+import api from "../../util/api";
+import {IconButton} from "../../components/iconButton";
+import {DeleteIcon} from "../../icons/deleteIcon";
+import {EditIcon} from "../../icons/editIcon";
+import EditItemModal from "../../components/modals/editItemModal";
 
 const PlayingFields: NextPage = () => {
 

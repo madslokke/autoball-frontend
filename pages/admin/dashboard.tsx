@@ -1,9 +1,9 @@
 import {NextPage} from "next";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import {Card, Grid, Input, Spacer, Table} from "@nextui-org/react";
 import React from "react";
-import {isLoggedIn, logOut} from "../util/auth";
-import CreateTeamModal from "../components/modals/createTeamModal";
+import {isLoggedIn, logOut} from "../../util/auth";
+import CreateTeamModal from "../../components/modals/createTeamModal";
 
 const Dashboard: NextPage = () => {
 

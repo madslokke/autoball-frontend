@@ -1,14 +1,14 @@
 import {NextPage} from "next";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import {Button, Card, Grid, Input, Loading, Spacer, Table} from "@nextui-org/react";
 import React, {useEffect, useState} from "react";
-import api from "../util/api";
-import {IconButton} from "../components/iconButton";
-import {DeleteIcon} from "../icons/deleteIcon";
-import {EditIcon} from "../icons/editIcon";
-import EditItemModal from "../components/modals/editItemModal";
+import api from "../../util/api";
+import {IconButton} from "../../components/iconButton";
+import {DeleteIcon} from "../../icons/deleteIcon";
+import {EditIcon} from "../../icons/editIcon";
+import EditItemModal from "../../components/modals/editItemModal";
 
-const Weapons: NextPage = () => {
+const Products: NextPage = () => {
 
   const [items, setItems] = useState([]);
   const [editItem, setEditItem] = useState<any>([]);
@@ -16,7 +16,7 @@ const Weapons: NextPage = () => {
   const editItemModal: any = React.createRef();
 
   const getItems = () => {
-    api().get('/api/weapons').then(result => {
+    api().get('/api/products').then(result => {
       setItems(result.data.data);
     });
   }
@@ -31,7 +31,7 @@ const Weapons: NextPage = () => {
   }
 
   const deleteItem = (id: any) => {
-    api().delete('/api/weapons/' + id, {responseType: "json"}).then(result => {
+    api().delete('/api/products/' + id, {responseType: "json"}).then(result => {
       getItems();
     });
   }
@@ -46,17 +46,16 @@ const Weapons: NextPage = () => {
           <Card>
             <div>
               <h1 className="text-xl inline-block pt-3 px-3">
-                Våben
+                Produkter
               </h1>
-              <Button size="sm" className="float-right mt-3 mx-3" onClick={() => openModal()}>
-                <span className="font-bold">Opret våben</span>
+              <Button size="sm" color="primary" className="float-right mt-3 mx-3" onClick={() => openModal()}>
+                <span className="font-bold">Opret produkt</span>
               </Button>
             </div>
             <Table
               lined
               headerLined
               shadow={false}
-              aria-label="Example static collection table"
               css={{
                 height: "auto",
                 minWidth: "100%",
@@ -66,22 +65,24 @@ const Weapons: NextPage = () => {
               <Table.Header>
                 <Table.Column>Id</Table.Column>
                 <Table.Column>Navn</Table.Column>
-                <Table.Column>NFC Id</Table.Column>
+                <Table.Column>Kugler</Table.Column>
+                <Table.Column>Pris</Table.Column>
                 <Table.Column width="100">Actions</Table.Column>
               </Table.Header>
               <Table.Body>
-                {items.map((weapon: any) => (
-                  <Table.Row key={weapon.id}>
-                    <Table.Cell>{weapon.id}</Table.Cell>
-                    <Table.Cell>{weapon.name}</Table.Cell>
-                    <Table.Cell>{weapon.nfc_id}</Table.Cell>
+                {items.map((product: any) => (
+                  <Table.Row key={product.id}>
+                    <Table.Cell>{product.id}</Table.Cell>
+                    <Table.Cell>{product.name}</Table.Cell>
+                    <Table.Cell>{product.bullets}</Table.Cell>
+                    <Table.Cell>{product.price} kr</Table.Cell>
                     <Table.Cell>
                       <div className="flex flex-row">
-                        <IconButton onClick={() => openModal(weapon)}>
+                        <IconButton onClick={() => openModal(product)}>
                           <EditIcon size={20} fill="#979797"/>
                         </IconButton>
                         <Spacer x={0.3}/>
-                        <IconButton onClick={() => deleteItem(weapon.id)}>
+                        <IconButton onClick={() => deleteItem(product.id)}>
                           <DeleteIcon size={20} fill="#FF0080"/>
                         </IconButton>
                       </div>
@@ -94,7 +95,8 @@ const Weapons: NextPage = () => {
           </Card>
         </Grid>
       </Grid.Container>
-      <EditItemModal ref={editItemModal} onClose={onClose} resourceName="weapons">
+      <EditItemModal ref={editItemModal} onClose={onClose} resourceName="products">
+        {editItem && <p>Kan kun opdater navnet ved allerede eksisterende produkter</p>}
         <Input
           clearable
           fullWidth
@@ -106,13 +108,22 @@ const Weapons: NextPage = () => {
         <Input
           clearable
           fullWidth
-          initialValue={editItem?.nfc_id}
-          name="nfc_id"
+          readOnly={editItem}
+          initialValue={editItem?.bullets}
+          name="bullets"
           size="lg"
-          label="NFC Id"/>
+          label="Kugler"/>
+        <Input
+          clearable
+          fullWidth
+          readOnly={editItem}
+          initialValue={editItem?.price}
+          name="price"
+          size="lg"
+          label="Pris"/>
       </EditItemModal>
     </Layout>
   )
 }
 
-export default Weapons;
+export default Products;

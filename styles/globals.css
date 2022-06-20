@@ -1,5 +1,5 @@
-:root body {
-  --nextui-borderWeights-normal: 0
+:root .nextui-table-container {
+  border: none;
 }
 table.nextui-c-cuoPNV-ieyJsXh-css {
   padding: 0;
