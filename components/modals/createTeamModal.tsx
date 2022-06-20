@@ -3,7 +3,7 @@ import {Input, Spacer} from "@nextui-org/react";
 import EditItemModal from "./editItemModal";
 import DropdownPlayingFields from "../dropdownPlayingFields";
 
-class CreateTeamModal extends React.Component<{ createTeamModal: any, onClose: any }, { selectedPlayingField: any }> {
+class CreateTeamModal extends React.Component<{ createTeamModal: any, onClose?: any }, { selectedPlayingField: any }> {
   render() {
     return (
       <EditItemModal
