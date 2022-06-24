@@ -11,6 +11,7 @@ import {EditIcon} from "../../../icons/editIcon";
 import {DeleteIcon} from "../../../icons/deleteIcon";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
+import {faMoneyBill} from "@fortawesome/free-solid-svg-icons/faMoneyBill";
 
 const Team: NextPage = () => {
 
@@ -56,6 +57,31 @@ const Team: NextPage = () => {
     })
   }
 
+  const updateStatus = (status: number) => {
+    return api().post('/api/teams/' + teamId + '/updateStatus', {status}).then(data => {
+      getTeam();
+    });
+  }
+
+  const closeTeam = () => {
+    const notPaidPlayers = list.items.filter((item: any) => !item.is_paid);
+
+    if (notPaidPlayers.length !== 0 && team.status !== 3) {
+      updateStatus(3);
+    } else {
+      updateStatus(4);
+    }
+  }
+
+  const markAsPaid = (playerId: number) => {
+    return api().post('/api/teams/' + teamId + '/players/' + playerId + '/setAsPaid').then(data => {
+      list.reload();
+      if (team.status === 3) {
+        setTimeout(closeTeam);
+      }
+    });
+  }
+
   async function load() {
     const res = await api().get('/api/teams/' + teamId + '/players');
     return {
@@ -79,11 +105,15 @@ const Team: NextPage = () => {
     };
   }
 
+  const getTeam = () => {
+    api().get('/api/teams/' + teamId).then(data => {
+      setTeam(data.data);
+    });
+  }
+
   useEffect(() => {
     if (teamId) {
-      api().get('/api/teams/' + teamId).then(data => {
-        setTeam(data.data);
-      });
+      getTeam();
       list.reload();
     }
   }, [teamId])
@@ -99,13 +129,31 @@ const Team: NextPage = () => {
         <p>Start: {team.start_date}</p>
         <p>Bane: {team.playing_field?.name}</p>
         <div className="!absolute right-0 bottom-0 flex">
-          <Button size="sm" color="warning" bordered>
-            <span className="font-bold">Annuller</span>
-          </Button>
+          {
+            team.status !== 4 && team.status !== 5 && (
+              <Button size="sm" color="warning" bordered onClick={() => updateStatus(5)}>
+                <span className="font-bold">Aflys</span>
+              </Button>
+            )
+          }
           {
             team.status === 1 && (
-              <Button size="sm" className="ml-2">
+              <Button size="sm" className="ml-2" onClick={() => updateStatus(2)}>
                 <span className="font-bold">Sæt igang</span>
+              </Button>
+            )
+          }
+          {
+            team.status === 2 && (
+              <Button size="sm" className="ml-2" onClick={() => closeTeam()}>
+                <span className="font-bold">Afslut</span>
+              </Button>
+            )
+          }
+          {
+            team.status === 3 && (
+              <Button size="sm" className="ml-2" onClick={() => updateStatus(2)}>
+                <span className="font-bold">Genåben</span>
               </Button>
             )
           }
@@ -130,7 +178,7 @@ const Team: NextPage = () => {
             <h1 className="text-xl inline-block pt-3 px-3">
               Spiller
             </h1>
-            <Button size="sm" className="float-right mt-3 mx-3" onClick={() => openModal()}>
+            <Button size="sm" className="float-right mt-3 mx-3">
               <span className="font-bold">Opret spiller</span>
             </Button>
           </div>
@@ -167,12 +215,30 @@ const Team: NextPage = () => {
                   <Table.Cell>{item.is_paid ? 'Ja' : 'Nej'}</Table.Cell>
                   <Table.Cell>
                     <div className="flex flex-row">
-                      <Tooltip content="Tilføj 100 kugler">
-                        <FontAwesomeIcon icon={faPlus} color="#979797" style={{fontSize: '20px'}} onClick={() => {
-                          addBullets(item.weapon.nfc_id)
-                        }}/>
-                      </Tooltip>
-                      <Spacer x={0.3}/>
+                      {
+                        item.bullets !== item.product.bullets && (
+                          <>
+                            <Tooltip content="Tilføj 100 kugler">
+                              <FontAwesomeIcon icon={faPlus} color="#979797" style={{fontSize: '20px'}} onClick={() => {
+                                addBullets(item.weapon.nfc_id)
+                              }}/>
+                            </Tooltip>
+                            <Spacer x={0.3}/>
+                          </>
+                        )
+                      }
+                      {
+                        !item.is_paid && (
+                          <>
+                            <Tooltip content="Marker som betalt">
+                              <FontAwesomeIcon icon={faMoneyBill} color="#979797" style={{fontSize: '20px'}} onClick={() => {
+                                  markAsPaid(item.id)
+                                }}/>
+                            </Tooltip>
+                            <Spacer x={0.3}/>
+                          </>
+                        )
+                      }
                       <IconButton>
                         <EditIcon size={20} fill="#979797"/>
                       </IconButton>

@@ -90,7 +90,7 @@ const PlayerPage: NextPage = () => {
     }
 
     api().get('/sanctum/csrf-cookie').then(() => {
-      api().post('/api/teams/' + teamCode + '/players', data, {responseType: "json"}).then(result => {
+      api().post('/api/teams/' + teamCode + '/createPlayer', data, {responseType: "json"}).then(result => {
         setPlayerName('');
         setWeaponId('');
         setSelectedProduct('');

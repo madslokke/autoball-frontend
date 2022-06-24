@@ -5,8 +5,6 @@ import {useCollator} from "@react-aria/i18n";
 import {IconButton} from "./iconButton";
 import {EditIcon} from "../icons/editIcon";
 import {DeleteIcon} from "../icons/deleteIcon";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 
 const ReloadStationsTable = ({teamId}: any) => {
 
