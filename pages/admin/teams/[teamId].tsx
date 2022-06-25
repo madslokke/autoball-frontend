@@ -68,7 +68,7 @@ const Team: NextPage = () => {
 
     if (notPaidPlayers.length !== 0 && team.status !== 3) {
       updateStatus(3);
-    } else {
+    } else if (notPaidPlayers.length === 0) {
       updateStatus(4);
     }
   }
