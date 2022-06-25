@@ -123,7 +123,6 @@ const ReloadStations: NextPage = () => {
         <Input
           clearable
           fullWidth
-          readOnly={editItem}
           initialValue={editItem?.bullets}
           name="bullets"
           size="lg"
