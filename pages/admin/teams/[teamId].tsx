@@ -76,6 +76,7 @@ const Team: NextPage = () => {
   const markAsPaid = (playerId: number) => {
     return api().post('/api/teams/' + teamId + '/players/' + playerId + '/setAsPaid').then(data => {
       list.reload();
+      getTeam();
     });
   }
 
