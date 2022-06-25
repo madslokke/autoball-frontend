@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import {useRouter} from "next/router";
-import {Button, Card, Dropdown, Input, Spacer} from "@nextui-org/react";
+import {Button, Card, Input, Spacer} from "@nextui-org/react";
 import React, {useEffect, useState} from "react";
 import api from "../../../../util/api";
 import Product from "../../../../components/product";

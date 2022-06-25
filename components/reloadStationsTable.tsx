@@ -13,7 +13,12 @@ const ReloadStationsTable = ({teamId}: any) => {
   const list = useAsyncList({load: load, sort: sort});
 
   async function load() {
-    const res = await api().get('/api/teams/' + teamId + '/reloadStations');
+    let res;
+    if (teamId) {
+      res = await api().get('/api/teams/' + teamId + '/reloadStations');
+    } else {
+      res = await api().get('/api/reloadStations');
+    }
     return {
       items: res.data,
     };

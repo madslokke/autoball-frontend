@@ -6,6 +6,7 @@ import {Button, Card, Grid, Table, useAsyncList} from "@nextui-org/react";
 import CreateTeamModal from "../../../components/modals/createTeamModal";
 import {useCollator} from '@react-aria/i18n'
 import {useRouter} from "next/router";
+import Moment from "react-moment";
 
 
 const Index: NextPage = () => {
@@ -109,7 +110,7 @@ const Index: NextPage = () => {
                     <Table.Cell>{item.name}</Table.Cell>
                     <Table.Cell>{item.team_code}</Table.Cell>
                     <Table.Cell>{item.playing_field?.name}</Table.Cell>
-                    <Table.Cell>{item.start_date}</Table.Cell>
+                    <Table.Cell><Moment format="DD/MM/YYYY HH:mm">{item.start_date}</Moment></Table.Cell>
                     <Table.Cell>{getStatus(item.status)}</Table.Cell>
                   </Table.Row>
                 )}
