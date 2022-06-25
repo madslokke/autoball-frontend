@@ -20,7 +20,7 @@ class EditItemModal extends React.Component<{ onClose?: any, children: any, reso
 
   onSubmit(event: any) {
     event.preventDefault();
-    const data: any = this.props.getFieldData() ?? {};
+    const data: any = this.props.getFieldData ? this.props.getFieldData() : {};
     for (let field of event.target) {
       if (field.value) {
         data[field.name] = field.value;
