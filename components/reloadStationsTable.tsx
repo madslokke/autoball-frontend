@@ -66,7 +66,6 @@ const ReloadStationsTable = ({teamId}: any) => {
           <Table.Column key="id" allowsSorting>Id</Table.Column>
           <Table.Column key="name" allowsSorting>Navn</Table.Column>
           <Table.Column key="team_code">Kugler</Table.Column>
-          <Table.Column key="actions" width="100">Actions</Table.Column>
         </Table.Header>
         <Table.Body items={list.items} loadingState={list.loadingState}>
           {(item: any) => (
@@ -74,17 +73,6 @@ const ReloadStationsTable = ({teamId}: any) => {
               <Table.Cell>{item.id}</Table.Cell>
               <Table.Cell>{item.name}</Table.Cell>
               <Table.Cell>{item.bullets}</Table.Cell>
-              <Table.Cell>
-                <div className="flex flex-row">
-                  <IconButton>
-                    <EditIcon size={20} fill="#979797"/>
-                  </IconButton>
-                  <Spacer x={0.3}/>
-                  <IconButton>
-                    <DeleteIcon size={20} fill="#FF0080"/>
-                  </IconButton>
-                </div>
-              </Table.Cell>
             </Table.Row>
           )}
         </Table.Body>
