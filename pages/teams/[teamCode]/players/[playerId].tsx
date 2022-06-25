@@ -99,6 +99,16 @@ const PlayerPage: NextPage = () => {
     });
   }
 
+  function compare( a: any, b: any ) {
+    if ( a.price < b.price ){
+      return -1;
+    }
+    if ( a.price > b.price ){
+      return 1;
+    }
+    return 0;
+  }
+
   return (
     <div>
       <div className="text-center py-6 md:py-20">
@@ -111,7 +121,7 @@ const PlayerPage: NextPage = () => {
           <Input label="Våben nummer" size="lg" onChange={changeWeapon} value={weaponId}
                  status={weaponId ? (validWeapon ? 'success' : 'error') : 'default'}/>
           <Button onClick={(event) => scanWeapon(event)} type="button">Scan våben</Button>
-          {products?.map((product: any) => (
+          {products?.sort(compare)?.map((product: any) => (
             <div key={product.id}>
               <Spacer/>
               <Product product={product} selected={product.id === selectedProduct}
