@@ -214,7 +214,7 @@ const Team: NextPage = () => {
                   <Table.Cell>
                     <div className="flex flex-row">
                       {
-                        item.bullets !== item.product.bullets && team.status === 2 && (
+                        item.bullets !== item.product.bullets && team?.status === 2 && (
                           <>
                             <Tooltip content="Tilføj 100 kugler">
                               <FontAwesomeIcon icon={faPlus} color="#979797" style={{fontSize: '20px'}} onClick={() => {
