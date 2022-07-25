@@ -8,6 +8,7 @@ import {logIn} from "../util/auth";
 const Login: NextPage = () => {
 
   const [formInput, setFormInput] = useState({email: '', password: ''})
+  const [error, setError] = useState('')
 
   const updateFormInput = (e: any) => {
     e.persist()
@@ -22,7 +23,7 @@ const Login: NextPage = () => {
       api().post('/login', formInput).then(({data}) => {
         logIn();
       }).catch(({errors}) => {
-        alert(errors[0]);
+        setError(errors[0]);
       })
     })
   }
@@ -34,6 +35,7 @@ const Login: NextPage = () => {
         <div className="w-[450px] justify-center">
           <form onSubmit={onLogin}>
             <Card className="!p-10">
+              {error ? <div className="text-red-500">{error}</div> : null}
               <Input placeholder="Brugernavn" name="email" type="email" required onChange={updateFormInput}/>
               <Spacer></Spacer>
               <Input placeholder="Password" name="password" type="password" required onChange={updateFormInput}/>

@@ -15,7 +15,7 @@ class Navbar extends React.Component<any, any> {
         <NavItem title="Produkter" link="/admin/products"/>
         <NavItem title="Reload stationer" link="/admin/reloadStations"/>
         <NavItem title="Baner" link="/admin/playingFields"/>
-        {/*<NavItem title="Brugere" link="/admin/users"/>*/}
+        <NavItem title="Brugere" link="/admin/users"/>
         {/*<NavItem title="Statistik" link="/admin/statistics"/>*/}
         <NavItem title="Logout" onClick={() => logOut()}/>
       </div>
