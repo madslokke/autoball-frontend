@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import Layout from "../../components/layout";
-import {Button, Card, Grid, Input, Loading, Spacer, Table} from "@nextui-org/react";
+import {Button, Card, Dropdown, Grid, Input, Loading, Spacer, Table} from "@nextui-org/react";
 import React, {useEffect, useState} from "react";
 import api from "../../util/api";
 import {IconButton} from "../../components/iconButton";
@@ -12,6 +12,9 @@ const Users: NextPage = () => {
 
   const [items, setItems] = useState([]);
   const [editItem, setEditItem] = useState<any>([]);
+
+  const [roles, setRoles] = useState<any>([]);
+  const [selectedRole, setSelectedRole] = useState('');
 
   const editItemModal: any = React.createRef();
 
@@ -25,6 +28,15 @@ const Users: NextPage = () => {
     getItems();
   }
 
+  const onSave = (event: any, data: any) => {
+    data.role_id = (selectedRole as any).currentKey;
+    return api().post('/api/invite', data, {responseType: "json"}).then(result => {
+      for (let field of event.target) {
+        field.value = '';
+      }
+    });
+  }
+
   const openModal = (item?: any) => {
     setEditItem(item);
     editItemModal.current.openModal(item)
@@ -36,8 +48,21 @@ const Users: NextPage = () => {
     });
   }
 
+  const getRole = (selectedRole: any) => {
+    return (roles.find((data: any) => {
+      return data.id === +selectedRole.currentKey;
+    }) as any)?.name;
+  }
+
+  const getRoles = () => {
+    api().get('/api/roles').then(result => {
+      setRoles(result.data);
+    });
+  }
+
   useEffect(() => {
-    getItems()
+    getItems();
+    getRoles();
   }, []);
   return (
     <Layout>
@@ -96,23 +121,36 @@ const Users: NextPage = () => {
           </Card>
         </Grid>
       </Grid.Container>
-      <EditItemModal ref={editItemModal} onClose={onClose} resourceName="users">
+      <EditItemModal ref={editItemModal} onClose={onClose} resourceName="users" onSave={(event, data) => onSave(event, data)}>
         <Input
           clearable
           fullWidth
           name="email"
           size="lg"
+          type="email"
           initialValue={editItem?.email}
           readOnly={editItem?.id}
           required
           label="Email"/>
-        <Input
-          clearable
-          fullWidth
-          initialValue={editItem?.role}
-          name="role"
-          size="lg"
-          label="Rolle"/>
+        <Dropdown>
+          <Dropdown.Button flat>
+            {selectedRole ? getRole(selectedRole) : 'Vælg rolle'}
+          </Dropdown.Button>
+          <Dropdown.Menu
+            items={roles}
+            selectionMode="single"
+            selectedKeys={selectedRole}
+            onSelectionChange={(value: any) => setSelectedRole(value)}
+          >
+            {(item: any) => (
+              <Dropdown.Item
+                key={item.id}
+              >
+                {item.name}
+              </Dropdown.Item>
+            )}
+          </Dropdown.Menu>
+        </Dropdown>
       </EditItemModal>
     </Layout>
   )

@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import Layout from "../../components/layout";
-import {Button, Card, Dropdown, Grid, Input, Loading, Spacer, Table} from "@nextui-org/react";
+import {Button, Card, Grid, Input, Loading, Spacer, Table} from "@nextui-org/react";
 import React, {useEffect, useState} from "react";
 import api from "../../util/api";
 import {IconButton} from "../../components/iconButton";

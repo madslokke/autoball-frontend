@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Input, Modal, Spacer} from "@nextui-org/react";
 import api from "../../util/api";
 
-class EditItemModal extends React.Component<{ onClose?: any, children: any, resourceName: string, getFieldData?: any }, { open: boolean, item?: any }> {
+class EditItemModal extends React.Component<{ onClose?: () => any, children: any, resourceName: string, getFieldData?: any, onSave?: (event: any, data: any) => Promise<any> }, { open: boolean, item?: any }> {
 
   constructor(props: any) {
     super(props);
@@ -18,6 +18,24 @@ class EditItemModal extends React.Component<{ onClose?: any, children: any, reso
     });
   }
 
+  public save(event: any, data: any) {
+    if (this.state.item) {
+      api().put('/api/' + this.props.resourceName + '/' + this.state.item.id, data, {responseType: "json"}).then(result => {
+        this.setState({open: false});
+        for (let field of event.target) {
+          field.value = '';
+        }
+      });
+    } else {
+      api().post('/api/' + this.props.resourceName, data, {responseType: "json"}).then(result => {
+        this.setState({open: false});
+        for (let field of event.target) {
+          field.value = '';
+        }
+      });
+    }
+  }
+
   onSubmit(event: any) {
     event.preventDefault();
     const data: any = this.props.getFieldData ? this.props.getFieldData() : {};
@@ -27,21 +45,12 @@ class EditItemModal extends React.Component<{ onClose?: any, children: any, reso
       }
     }
     api().get('/sanctum/csrf-cookie').then(() => {
-
-      if (this.state.item) {
-        api().put('/api/' + this.props.resourceName + '/' + this.state.item.id, data, {responseType: "json"}).then(result => {
+      if (this.props.onSave) {
+        this.props.onSave(event, data).then(() => {
           this.setState({open: false});
-          for (let field of event.target) {
-            field.value = '';
-          }
         });
       } else {
-        api().post('/api/' + this.props.resourceName, data, {responseType: "json"}).then(result => {
-          this.setState({open: false});
-          for (let field of event.target) {
-            field.value = '';
-          }
-        });
+        this.save(event, data);
       }
     });
   }
