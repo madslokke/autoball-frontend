@@ -7,6 +7,7 @@ import {IconButton} from "../../components/iconButton";
 import {DeleteIcon} from "../../icons/deleteIcon";
 import {EditIcon} from "../../icons/editIcon";
 import EditItemModal from "../../components/modals/editItemModal";
+import UserInvitesTable from "../../components/userInvitesTable";
 
 const Users: NextPage = () => {
 
@@ -30,7 +31,7 @@ const Users: NextPage = () => {
 
   const onSave = (event: any, data: any) => {
     data.role_id = (selectedRole as any).currentKey;
-    return api().post('/api/invite', data, {responseType: "json"}).then(result => {
+    return api().post('/api/invites', data, {responseType: "json"}).then(result => {
       for (let field of event.target) {
         field.value = '';
       }
@@ -120,6 +121,7 @@ const Users: NextPage = () => {
             {items.length === 0 && <Loading/>}
           </Card>
         </Grid>
+        <UserInvitesTable/>
       </Grid.Container>
       <EditItemModal ref={editItemModal} onClose={onClose} resourceName="users" onSave={(event, data) => onSave(event, data)}>
         <Input
