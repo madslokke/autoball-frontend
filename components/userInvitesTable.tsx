@@ -56,7 +56,7 @@ const UserInvitesTable = () => {
               <Table.Row key={invite.id}>
                 <Table.Cell>{invite.id}</Table.Cell>
                 <Table.Cell>{invite.email}</Table.Cell>
-                <Table.Cell>{invite.role.name}</Table.Cell>
+                <Table.Cell>{invite.role?.name}</Table.Cell>
                 <Table.Cell>
                   <div className="flex flex-row">
                     <a href={"https://app.autoball.dk/admin/register?token=" + invite.token} target="_blank" rel="noreferrer">
