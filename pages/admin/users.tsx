@@ -17,6 +17,8 @@ const Users: NextPage = () => {
   const [roles, setRoles] = useState<any>([]);
   const [selectedRole, setSelectedRole] = useState('');
 
+  const [error, setError] = useState<string>('');
+
   const editItemModal: any = React.createRef();
 
   const getItems = () => {
@@ -35,6 +37,8 @@ const Users: NextPage = () => {
       for (let field of event.target) {
         field.value = '';
       }
+    }).catch(e => {
+      setError(e.message);
     });
   }
 
@@ -124,6 +128,7 @@ const Users: NextPage = () => {
         <UserInvitesTable/>
       </Grid.Container>
       <EditItemModal ref={editItemModal} onClose={onClose} resourceName="users" onSave={(event, data) => onSave(event, data)}>
+        <p>{error}</p>
         <Input
           clearable
           fullWidth
@@ -146,9 +151,9 @@ const Users: NextPage = () => {
           >
             {(item: any) => (
               <Dropdown.Item
-                key={item?.id}
+                key={item.id}
               >
-                {item?.name}
+                {item.name}
               </Dropdown.Item>
             )}
           </Dropdown.Menu>
