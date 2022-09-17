@@ -22,8 +22,8 @@ const Login: NextPage = () => {
     api().get('/sanctum/csrf-cookie').then(() => {
       api().post('/login', formInput).then(({data}) => {
         logIn();
-      }).catch((errors) => {
-        setError(errors.data.message);
+      }).catch(({errors}) => {
+        setError(errors[0]);
       })
     })
   }
