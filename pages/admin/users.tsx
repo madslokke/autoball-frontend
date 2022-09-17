@@ -130,7 +130,7 @@ const Users: NextPage = () => {
         <UserInvitesTable/>
       </Grid.Container>
       <EditItemModal ref={editItemModal} onClose={onClose} resourceName="users" onSave={(event, data) => onSave(event, data)}>
-        {error && <p>{error}</p> }
+        {error && <p className="text-red-500">{error}</p> }
         <Input
           clearable
           fullWidth
