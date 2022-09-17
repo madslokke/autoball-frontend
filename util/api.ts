@@ -22,7 +22,7 @@ export default function api() {
 
     console.error(error)
 
-    return Promise.reject({status: error.response?.status, ...error})
+    return Promise.reject({...error.response})
   })
 
   return api
