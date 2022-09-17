@@ -39,7 +39,7 @@ const Users: NextPage = () => {
       }
     }).catch(e => {
       console.log(e);
-      setError(e.message);
+      setError(e.data.message);
       throw e;
     });
   }
