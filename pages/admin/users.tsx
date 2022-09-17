@@ -146,9 +146,9 @@ const Users: NextPage = () => {
           >
             {(item: any) => (
               <Dropdown.Item
-                key={item.id}
+                key={item?.id}
               >
-                {item.name}
+                {item?.name}
               </Dropdown.Item>
             )}
           </Dropdown.Menu>
