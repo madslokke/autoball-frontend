@@ -38,6 +38,7 @@ const Users: NextPage = () => {
         field.value = '';
       }
     }).catch(e => {
+      console.log(e);
       setError(e.message);
       throw e;
     });
