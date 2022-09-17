@@ -97,19 +97,19 @@ const Users: NextPage = () => {
                 <Table.Column width="100">Actions</Table.Column>
               </Table.Header>
               <Table.Body>
-                {items?.map((weapon: any) => (
-                  <Table.Row key={weapon.id}>
-                    <Table.Cell>{weapon.id}</Table.Cell>
-                    <Table.Cell>{weapon.name}</Table.Cell>
-                    <Table.Cell>{weapon.email}</Table.Cell>
-                    <Table.Cell>{weapon.role.name}</Table.Cell>
+                {items?.map((user: any) => (
+                  <Table.Row key={user.id}>
+                    <Table.Cell>{user.id}</Table.Cell>
+                    <Table.Cell>{user.name}</Table.Cell>
+                    <Table.Cell>{user.email}</Table.Cell>
+                    <Table.Cell>{user.role?.name}</Table.Cell>
                     <Table.Cell>
                       <div className="flex flex-row">
-                        <IconButton onClick={() => openModal(weapon)}>
+                        <IconButton onClick={() => openModal(user)}>
                           <EditIcon size={20} fill="#979797"/>
                         </IconButton>
                         <Spacer x={0.3}/>
-                        <IconButton onClick={() => deleteItem(weapon.id)}>
+                        <IconButton onClick={() => deleteItem(user.id)}>
                           <DeleteIcon size={20} fill="#FF0080"/>
                         </IconButton>
                       </div>
